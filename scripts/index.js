@@ -64,7 +64,7 @@ class Calculator {
             this.operator2 = 0; //El segundo lo ponemos a 0
             this.updateInterface();
         }
-
+        //Añadimos la funcionalidad a cada operador
         calculate(){
             switch(this.operator){
                 case "%":
@@ -121,6 +121,7 @@ const clearAllButton = document.querySelector("[data-clearAll]");
 const numberButtons = document.querySelectorAll("[data-number]"); //Seleccionamos todos los números
 const deleteButton = document.querySelector("[data-delete]");
 const operationButtons = document.querySelectorAll("[data-operation]");
+const equalsButton = document.querySelector("[data-equals]");
 
 //le pasamos los elementos de guardado de la ultima operacion y la operacion actual
 const calculator = new Calculator(saveOperationElement,doOperationElement); 
@@ -148,6 +149,10 @@ operationButtons.forEach(button=>{
         calculator.operators(button.innerHTML);
     } )
 });
+
+equalsButton.addEventListener("click",()=>{
+    calculator.calculate();
+})
 
 /*
 const createHistorial = (text) => {
