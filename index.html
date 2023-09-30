@@ -12,39 +12,39 @@
     <div class="calculator">
         <div class="screen">
         <div data-last>0</div> <!--25 characters-->
-        <div data-final>0</div> <!--14 characters-->
+        <div data-final>3</div> <!--14 characters-->
         </div>
         
         <div class="buttons">
-            <button class="item percent sign row1" value="%">%</button>
-            <button class="item pi row1" value="pi">π</button> 
-            <button class="item clear-all row1" value="c">C</button> 
-            <button class="item clear row1" value="delete">⌫</button> 
-            <button class="item fraction row2" value="fraction">⅟ₓ</button> 
-            <button class="item expose row2" value="expose">ₓ²</button> 
-            <button class="item square-root row2" value="square-root">²√ₓ</button> 
-            <button class="item divide row2" value="divide">÷</button> 
-            <button class="item numbers row3" value="seven">7</button> 
-            <button class="item numbers row3" value="eight">8</button> 
-            <button class="item numbers row3" value="nine">9</button> 
-            <button class="item sign row3" value="multiply">✕</button> 
-            <button class="item numbers row4" value="four">4</button> 
-            <button class="item numbers row4" value="five">5</button> 
-            <button class="item numbers row4" value="six">6</button> 
-            <button class="item sign row4" value="subtract">-</button> 
-            <button class="item numbers row5" value="one">1</button>   
-            <button class="item numbers row5" value="two">2</button> 
-            <button class="item numbers row5" value="three">3</button> 
-            <button class="item sign row5" value="add">+</button> 
-            <button class="item negative row6" value="negative">± </button> 
-            <button class="item numbers zero row6" value="zero">0</button> 
-            <button class="item comma row6" value="comma">,</button> 
-            <button class="item equals row6" value="equals">=</button> 
+            <button class="item percent sign row1" data-operation>%</button>
+            <button class="item pi row1" data-operation>π</button> 
+            <button class="item clear-all row1" data-clearAll>C</button> 
+            <button class="item clear row1" data-delete>⌫</button> 
+            <button class="item fraction row2" data-operation>⅟ₓ</button> 
+            <button class="item expose row2" data-operation>ₓ²</button> 
+            <button class="item square-root row2"data-operation>²√ₓ</button> 
+            <button class="item divide row2" data-operation>÷</button> 
+            <button class="item numbers row3" data-number>7</button> 
+            <button class="item numbers row3" data-number>8</button> 
+            <button class="item numbers row3" data-number>9</button> 
+            <button class="item sign row3" data-operation>✕</button> 
+            <button class="item numbers row4" data-number>4</button> 
+            <button class="item numbers row4" data-number>5</button> 
+            <button class="item numbers row4" data-number>6</button> 
+            <button class="item sign row4" data-operation>-</button> 
+            <button class="item numbers row5" data-number>1</button>   
+            <button class="item numbers row5" data-number>2</button> 
+            <button class="item numbers row5" data-number>3</button> 
+            <button class="item sign row5" data-operation>+</button> 
+            <button class="item negative row6" data-operation>± </button> 
+            <button class="item numbers zero row6" data-number>0</button> 
+            <button class="item comma row6" data-number>,</button> 
+            <button class="item equals row6" data-equals>=</button> 
         </div>
     </div>
-    <div class="historial">
-                
-    </div>
+    <ul class="historial" id="data-operators">
+                HISTORIAL
+    </ul>
 </div>
     <script src="./scripts/index.js"></script>
 </body>
