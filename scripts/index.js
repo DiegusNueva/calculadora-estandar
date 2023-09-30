@@ -1,16 +1,16 @@
 //Creamos la clase
 class Calculator {
     //Pasamos los dos parámetros, donde hacemos la operacion y donde guardamos la anterior operación
-    constructor(saveOperationElement, doOperationElement){
-        this.saveOperationElement = saveOperationElement;
-        this.doOperationElement = doOperationElement;
+    constructor(operator1Element, operator2Element){
+        this.operator1Element = operator1Element;
+        this.operator2Element = operator2Element;
         this.clearAll();
     }
 
     clearAll(){
         //Reseteamos todo
-        this.saveOperation = 0;
-        this.doOperation = 0;
+        this.operator1 = 0;
+        this.operator2 = 0;
         this.operator = '';
         this.updateInterface();
 
@@ -19,36 +19,97 @@ class Calculator {
     //Actualicación de la interfaz
     updateInterface(){
         
-        this.saveOperationElement.innerHTML = this.saveOperation + this.operator;
-        this.doOperationElement.innerHTML = this.doOperation;
+        this.operator1Element.innerHTML = this.operator1 + this.operator;
+        this.operator2Element.innerHTML = this.operator2;
     }
 
     //Insertar números
     appendNumber(number){
         //Evitar que incluya mas de una coma
-        if(number === "," && this.doOperation.includes(',')) return; //Hacemos un return para evitar que se vuelva a incluir
-        if(number === "π" && this.doOperation.includes('π')) return 3.14159;
-        this.doOperation = this.doOperation === 0 
+        if(number === "," && this.operator2.includes(',')) return; //Hacemos un return para evitar que se vuelva a incluir
+        
+        this.operator2 = this.operator2 === 0 
         ? number //cambiamos el 0 por un numero si ese cero es el primer valor
-        : this.doOperation.toString() + number; //Si no es 0, debemos concatenar el anterior valor
+        : this.operator2.toString() + number; //Si no es 0, debemos concatenar el anterior valor
         this.updateInterface(); //Para poder ver resultados en la interfaz de usuario
+        switch(this.operator2){
+            case "π":
+                let pi =[5];
+                this.operator2=Math.PI();
+                for (let i = 0; i <pi.length; i++){
+                    this.operator2*=this.operator2;
+                }
+                break;
+        }
         }
 
         //Boorado de el ultimo numero
         delete(){
-            if(this.doOperation === 0) return; //Si el valor es igual a 0 se cancela el borrado
-            this.doOperation = +this.doOperation.toString().slice(0,-1); //al añadir el simbolo +, se parsea a número
+            if(this.operator2 === 0) return; //Si el valor es igual a 0 se cancela el borrado
+            this.operator2 = +this.operator2.toString().slice(0,-1); //al añadir el simbolo +, se parsea a número
             //va eliminando desde el ultimo numero gracias a la funcion .slice()
             this.updateInterface(); //Para poder ver resultados en la interfaz de usuario
         }
 
         //Asignacion de los operadores
         operators(operator){
+            //Comprobar que el operador ya existe
+            if(this.operator){
+                this.calculate();
+            }
             this.operator = operator;
-            this.saveOperation = this.doOperation; //Le pasamos el primer operador al segundo
-            this.doOperation = 0; //El segundo lo ponemos a 0
+            this.operator1 = +this.operator2 === 0
+            ? this.operator1
+            : this.operator2 ; //Le pasamos el primer operador al segundo
+            this.operator2 = 0; //El segundo lo ponemos a 0
             this.updateInterface();
         }
+
+        calculate(){
+            switch(this.operator){
+                case "%":
+                    this.operator1 = +this.operator1/100;
+                    break;
+
+                case "⅟ₓ":
+                    this.operator1 = 1/+this.operator1;
+                    break;
+                case "ₓ²":
+                    this.operator1 = +Math.pow(this.operator1,2);
+                    break;
+                case "²√ₓ":
+                    this.operator1 = +Math.sqrt(this.operator1);
+                break;
+
+                case "÷": 
+                this.operator1 = +this.operator1 / +this.operator2;
+                break;
+
+                case "✕":
+                    this.operator1 = +this.operator1 * +this.operator2;
+                break;
+
+                case "-":
+                    this.operator1 = +this.operator1 - +this.operator2;
+                break;
+
+                case "+":
+                    this.operator1 = +this.operator1 + +this.operator2;
+                break;
+
+                case "±":
+                    if (this.operator1 > 0){
+                        this.operator1 = Math.abs(this.operator1) * -1;
+                    }
+                    else{
+                        this.operator1 = Math.abs(this.operator1);
+                    }
+                break;
+            }
+            this.operator = "";
+            this.operator2 = 0;
+            this.updateInterface();
+               }
 }
 
 
@@ -57,7 +118,7 @@ class Calculator {
 const saveOperationElement = document.querySelector("[data-last]"); 
 const doOperationElement = document.querySelector("[data-final]"); 
 const clearAllButton = document.querySelector("[data-clearAll]");
-const numberButtons = document.querySelectorAll("[data-number]"); //Seleccinamos todos los números
+const numberButtons = document.querySelectorAll("[data-number]"); //Seleccionamos todos los números
 const deleteButton = document.querySelector("[data-delete]");
 const operationButtons = document.querySelectorAll("[data-operation]");
 
