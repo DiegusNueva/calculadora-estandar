@@ -6,6 +6,7 @@ class Calculator {
         this.operator2Element = operator2Element;
         this.clearAll();
     }
+ 
 
     clearAll(){
         //Reseteamos todo
@@ -34,11 +35,7 @@ class Calculator {
         this.updateInterface(); //Para poder ver resultados en la interfaz de usuario
         switch(this.operator2){
             case "π":
-                let pi =[5];
-                this.operator2=Math.PI();
-                for (let i = 0; i <pi.length; i++){
-                    this.operator2*=this.operator2;
-                }
+                const pi = Math.PI();
                 break;
         }
         }
@@ -97,7 +94,7 @@ class Calculator {
                     this.operator1 = +this.operator1 + +this.operator2;
                 break;
 
-                case "±":
+                case "±": //Funciona dandole al igual
                     if (this.operator1 > 0){
                         this.operator1 = Math.abs(this.operator1) * -1;
                     }
@@ -115,16 +112,16 @@ class Calculator {
 
 
 //Llamadas del elemento HTML a nuestro código de JS
-const saveOperationElement = document.querySelector("[data-last]"); 
-const doOperationElement = document.querySelector("[data-final]"); 
+const operator1Element = document.querySelector("[data-last]"); 
+const operator2Element = document.querySelector("[data-final]"); 
 const clearAllButton = document.querySelector("[data-clearAll]");
-const numberButtons = document.querySelectorAll("[data-number]"); //Seleccionamos todos los números
+const numberButtons = document.querySelectorAll("[data-number], [data-pi]"); //Seleccionamos todos los números
 const deleteButton = document.querySelector("[data-delete]");
 const operationButtons = document.querySelectorAll("[data-operation]");
 const equalsButton = document.querySelector("[data-equals]");
 
 //le pasamos los elementos de guardado de la ultima operacion y la operacion actual
-const calculator = new Calculator(saveOperationElement,doOperationElement); 
+const calculator = new Calculator(operator1Element,operator2Element); 
 
 //Cuando le demos click al boton de borrar todo, ejecutará la función
 clearAllButton.addEventListener("click", () =>{
