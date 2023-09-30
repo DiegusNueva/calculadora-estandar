@@ -11,7 +11,7 @@ class Calculator {
         //Reseteamos todo
         this.saveOperation = 0;
         this.doOperation = 0;
-        this.sign = '';
+        this.operator = '';
         this.updateInterface();
 
     }
@@ -19,7 +19,7 @@ class Calculator {
     //Actualicación de la interfaz
     updateInterface(){
         
-        this.saveOperationElement.innerHTML = this.saveOperation + this.sign;
+        this.saveOperationElement.innerHTML = this.saveOperation + this.operator;
         this.doOperationElement.innerHTML = this.doOperation;
     }
 
@@ -27,17 +27,27 @@ class Calculator {
     appendNumber(number){
         //Evitar que incluya mas de una coma
         if(number === "," && this.doOperation.includes(',')) return; //Hacemos un return para evitar que se vuelva a incluir
+        if(number === "π" && this.doOperation.includes('π')) return 3.14159;
         this.doOperation = this.doOperation === 0 
         ? number //cambiamos el 0 por un numero si ese cero es el primer valor
         : this.doOperation.toString() + number; //Si no es 0, debemos concatenar el anterior valor
         this.updateInterface(); //Para poder ver resultados en la interfaz de usuario
         }
 
+        //Boorado de el ultimo numero
         delete(){
             if(this.doOperation === 0) return; //Si el valor es igual a 0 se cancela el borrado
             this.doOperation = +this.doOperation.toString().slice(0,-1); //al añadir el simbolo +, se parsea a número
             //va eliminando desde el ultimo numero gracias a la funcion .slice()
             this.updateInterface(); //Para poder ver resultados en la interfaz de usuario
+        }
+
+        //Asignacion de los operadores
+        operators(operator){
+            this.operator = operator;
+            this.saveOperation = this.doOperation; //Le pasamos el primer operador al segundo
+            this.doOperation = 0; //El segundo lo ponemos a 0
+            this.updateInterface();
         }
 }
 
@@ -49,6 +59,7 @@ const doOperationElement = document.querySelector("[data-final]");
 const clearAllButton = document.querySelector("[data-clearAll]");
 const numberButtons = document.querySelectorAll("[data-number]"); //Seleccinamos todos los números
 const deleteButton = document.querySelector("[data-delete]");
+const operationButtons = document.querySelectorAll("[data-operation]");
 
 //le pasamos los elementos de guardado de la ultima operacion y la operacion actual
 const calculator = new Calculator(saveOperationElement,doOperationElement); 
@@ -69,6 +80,13 @@ numberButtons.forEach(button =>{
 deleteButton.addEventListener('click', () =>{
     calculator.delete();
 })
+
+//Recorre todos los botones de funcines que tenemos
+operationButtons.forEach(button=>{
+    button.addEventListener('click',()=>{
+        calculator.operators(button.innerHTML);
+    } )
+});
 
 /*
 const createHistorial = (text) => {
